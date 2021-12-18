@@ -83,6 +83,9 @@
     <easymockVersion>4.3</easymockVersion>
     <compilerPluginVersion>3.8.1</compilerPluginVersion>
     <surefireVersion>3.0.0-M5</surefireVersion>
+    <argLine>
+      --add-opens java.base/java.lang=ALL-UNNAMED
+    </argLine>
   </properties>
   <dependencies>
     <dependency>
