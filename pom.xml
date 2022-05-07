@@ -119,6 +119,12 @@
       <version>${slf4jVersion}</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.fedoraproject.xmvn</groupId>
+      <artifactId>xmvn-core</artifactId>
+      <version>${xmvnVersion}</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
   <build>
     <plugins>
@@ -126,19 +132,35 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>${compilerPluginVersion}</version>
         <configuration>
-          <release>11</release>
-        </configuration>
-      </plugin>
-      <plugin>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>${surefireVersion}</version>
-        <!-- TODO: remove once easymock is updated. See: https://github.com/easymock/easymock/issues/274 -->
-        <configuration>
-          <argLine>
-            --add-opens java.base/java.lang=ALL-UNNAMED
-          </argLine>
+          <source>1.8</source>
+          <target>1.8</target>
         </configuration>
       </plugin>
     </plugins>
   </build>
+  <profiles>
+    <profile>
+      <id>jdk9+</id>
+      <activation>
+        <jdk>[9,)</jdk>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <configuration>
+              <release>8</release>
+            </configuration>
+          </plugin>
+          <plugin>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>${surefireVersion}</version>
+            <configuration>
+              <argLine>--add-opens java.base/java.lang=ALL-UNNAMED</argLine>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>
