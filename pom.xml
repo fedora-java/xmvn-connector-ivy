@@ -82,7 +82,7 @@
     <junitVersion>5.8.2</junitVersion>
     <easymockVersion>4.3</easymockVersion>
     <compilerPluginVersion>3.10.1</compilerPluginVersion>
-    <surefireVersion>3.0.0-M5</surefireVersion>
+    <surefireVersion>3.0.0-M7</surefireVersion>
   </properties>
   <dependencies>
     <dependency>
