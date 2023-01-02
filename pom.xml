@@ -80,7 +80,7 @@
     <ivyVersion>2.5.0</ivyVersion>
     <slf4jVersion>2.0.0-alpha7</slf4jVersion>
     <junitVersion>5.8.2</junitVersion>
-    <easymockVersion>4.3</easymockVersion>
+    <easymockVersion>5.1.0</easymockVersion>
     <compilerPluginVersion>3.10.1</compilerPluginVersion>
     <surefireVersion>3.0.0-M7</surefireVersion>
   </properties>
