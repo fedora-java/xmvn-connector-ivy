@@ -78,7 +78,7 @@
     <project.build.sourceEncoding>US-ASCII</project.build.sourceEncoding>
     <xmvnVersion>3.1.0</xmvnVersion>
     <ivyVersion>2.5.1</ivyVersion>
-    <slf4jVersion>2.0.0-alpha7</slf4jVersion>
+    <slf4jVersion>2.0.7</slf4jVersion>
     <junitVersion>5.8.2</junitVersion>
     <easymockVersion>5.1.0</easymockVersion>
     <compilerPluginVersion>3.10.1</compilerPluginVersion>
