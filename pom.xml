@@ -83,6 +83,7 @@
     <easymockVersion>5.1.0</easymockVersion>
     <compilerPluginVersion>3.11.0</compilerPluginVersion>
     <surefireVersion>3.1.2</surefireVersion>
+    <spotlessVersion>2.43.0</spotlessVersion>
   </properties>
   <dependencies>
     <dependency>
@@ -136,9 +137,108 @@
           <target>1.8</target>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>com.diffplug.spotless</groupId>
+        <artifactId>spotless-maven-plugin</artifactId>
+        <version>${spotlessVersion}</version>
+        <configuration>
+          <java>
+            <googleJavaFormat>
+              <version>${googleJavaFormatVersion}</version>
+              <style>AOSP</style>
+              <formatJavadoc>true</formatJavadoc>
+            </googleJavaFormat>
+            <removeUnusedImports/>
+            <formatAnnotations/>
+            <importOrder/>
+            <licenseHeader>
+              <content>/*-
+ * Copyright (c) $YEAR Red Hat, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */</content>
+            </licenseHeader>
+          </java>
+          <pom>
+            <sortPom>
+              <encoding>US-ASCII</encoding>
+              <expandEmptyElements>false</expandEmptyElements>
+            </sortPom>
+            <licenseHeader>
+              <content>&lt;?xml version="1.0" encoding="US-ASCII"?&gt;
+&lt;!--
+ ! Copyright (c) $YEAR Red Hat, Inc.
+ !
+ ! Licensed under the Apache License, Version 2.0 (the "License");
+ ! you may not use this file except in compliance with the License.
+ ! You may obtain a copy of the License at
+ !
+ !     http://www.apache.org/licenses/LICENSE-2.0
+ !
+ ! Unless required by applicable law or agreed to in writing, software
+ ! distributed under the License is distributed on an "AS IS" BASIS,
+ ! WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ ! See the License for the specific language governing permissions and
+ ! limitations under the License.
+ `--&gt;</content>
+              <delimiter>&lt;project</delimiter>
+            </licenseHeader>
+          </pom>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
   <profiles>
+    <profile>
+      <id>auto-format</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>com.diffplug.spotless</groupId>
+            <artifactId>spotless-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>apply</goal>
+                </goals>
+                <phase>validate</phase>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>quality</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>com.diffplug.spotless</groupId>
+            <artifactId>spotless-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>check</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
     <profile>
       <id>jdk9+</id>
       <activation>
