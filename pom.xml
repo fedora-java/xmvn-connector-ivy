@@ -78,7 +78,7 @@
     <easymockVersion>5.5.0</easymockVersion>
     <compilerPluginVersion>3.14.0</compilerPluginVersion>
     <surefireVersion>3.5.2</surefireVersion>
-    <spotlessVersion>2.43.0</spotlessVersion>
+    <spotlessVersion>2.44.3</spotlessVersion>
   </properties>
   <dependencies>
     <dependency>
