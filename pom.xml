@@ -122,6 +122,19 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+  <repositories>
+    <repository>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <id>sonatype-oss-snapshots</id>
+      <url>http://oss.sonatype.org/content/repositories/snapshots</url>
+      <layout>default</layout>
+    </repository>
+  </repositories>
   <build>
     <plugins>
       <plugin>
