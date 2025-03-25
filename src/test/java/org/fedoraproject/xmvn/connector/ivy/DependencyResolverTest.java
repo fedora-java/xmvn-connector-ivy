@@ -24,7 +24,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
 import org.apache.ivy.core.module.descriptor.DefaultDependencyDescriptor;
 import org.apache.ivy.core.module.descriptor.DependencyDescriptor;
 import org.apache.ivy.core.module.id.ModuleId;
@@ -32,21 +31,19 @@ import org.apache.ivy.core.module.id.ModuleRevisionId;
 import org.apache.ivy.core.resolve.ResolvedModuleRevision;
 import org.apache.ivy.core.settings.IvySettings;
 import org.easymock.EasyMock;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import org.fedoraproject.xmvn.artifact.Artifact;
 import org.fedoraproject.xmvn.artifact.DefaultArtifact;
 import org.fedoraproject.xmvn.deployer.Deployer;
 import org.fedoraproject.xmvn.resolver.ResolutionRequest;
 import org.fedoraproject.xmvn.resolver.ResolutionResult;
 import org.fedoraproject.xmvn.resolver.Resolver;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Mikolaj Izdebski
  */
-public class DependencyResolverTest
-{
+public class DependencyResolverTest {
     private IvyResolver ivyResolver = new IvyResolver();
 
     private Resolver resolver;
@@ -54,92 +51,76 @@ public class DependencyResolverTest
     private Deployer deployer;
 
     @BeforeEach
-    public void setUp()
-    {
-        resolver = EasyMock.createStrictMock( Resolver.class );
-        deployer = EasyMock.createStrictMock( Deployer.class );
+    public void setUp() {
+        resolver = EasyMock.createStrictMock(Resolver.class);
+        deployer = EasyMock.createStrictMock(Deployer.class);
         ivyResolver = new IvyResolver();
-        ivyResolver.setSettings( new IvySettings() );
-        ivyResolver.setResolver( resolver );
-        ivyResolver.setDeployer( deployer );
+        ivyResolver.setSettings(new IvySettings());
+        ivyResolver.setResolver(resolver);
+        ivyResolver.setDeployer(deployer);
     }
 
-    private Path getResource( String id, String ext )
-    {
-        if ( id == null )
-            return null;
+    private Path getResource(String id, String ext) {
+        if (id == null) return null;
 
-        return Paths.get( "src/test/resources/" + id + "." + ext ).toAbsolutePath();
+        return Paths.get("src/test/resources/" + id + "." + ext).toAbsolutePath();
     }
 
-    private void testResolution( String pom, String jar )
-        throws Exception
-    {
-        Artifact pomArtifact = new DefaultArtifact( "gid:aid:pom:ver" );
-        ResolutionRequest pomRequest = new ResolutionRequest( pomArtifact );
-        Path pomPath = getResource( pom, "pom" );
-        ResolutionResult pomResult = new ResolutionResultMock( pomPath );
-        expect( resolver.resolve( pomRequest ) ).andReturn( pomResult );
+    private void testResolution(String pom, String jar) throws Exception {
+        Artifact pomArtifact = new DefaultArtifact("gid:aid:pom:ver");
+        ResolutionRequest pomRequest = new ResolutionRequest(pomArtifact);
+        Path pomPath = getResource(pom, "pom");
+        ResolutionResult pomResult = new ResolutionResultMock(pomPath);
+        expect(resolver.resolve(pomRequest)).andReturn(pomResult);
 
-        Artifact jarArtifact = new DefaultArtifact( "gid:aid:jar:ver" );
-        ResolutionRequest jarRequest = new ResolutionRequest( jarArtifact );
-        Path jarPath = getResource( jar, "jar" );
-        ResolutionResult jarResult = new ResolutionResultMock( jarPath );
-        expect( resolver.resolve( jarRequest ) ).andReturn( jarResult );
+        Artifact jarArtifact = new DefaultArtifact("gid:aid:jar:ver");
+        ResolutionRequest jarRequest = new ResolutionRequest(jarArtifact);
+        Path jarPath = getResource(jar, "jar");
+        ResolutionResult jarResult = new ResolutionResultMock(jarPath);
+        expect(resolver.resolve(jarRequest)).andReturn(jarResult);
 
-        replay( resolver, deployer );
+        replay(resolver, deployer);
 
-        ModuleId moduleId = new ModuleId( "gid", "aid" );
-        ModuleRevisionId mrid = new ModuleRevisionId( moduleId, "ver" );
-        DependencyDescriptor dd = new DefaultDependencyDescriptor( mrid, true );
-        ResolvedModuleRevision rmr = ivyResolver.getDependency( dd, null );
+        ModuleId moduleId = new ModuleId("gid", "aid");
+        ModuleRevisionId mrid = new ModuleRevisionId(moduleId, "ver");
+        DependencyDescriptor dd = new DefaultDependencyDescriptor(mrid, true);
+        ResolvedModuleRevision rmr = ivyResolver.getDependency(dd, null);
 
-        if ( pom == null || !Files.exists( pomPath ) )
-        {
-            assertNull( rmr );
-        }
-        else
-        {
-            assertNotNull( rmr );
-            assertEquals( ivyResolver, rmr.getArtifactResolver() );
-            assertEquals( "org.codehaus.plexus", rmr.getDescriptor().getModuleRevisionId().getOrganisation() );
-            assertEquals( "plexus", rmr.getDescriptor().getModuleRevisionId().getName() );
-            assertEquals( "3.3.1", rmr.getDescriptor().getModuleRevisionId().getRevision() );
+        if (pom == null || !Files.exists(pomPath)) {
+            assertNull(rmr);
+        } else {
+            assertNotNull(rmr);
+            assertEquals(ivyResolver, rmr.getArtifactResolver());
+            assertEquals(
+                    "org.codehaus.plexus",
+                    rmr.getDescriptor().getModuleRevisionId().getOrganisation());
+            assertEquals("plexus", rmr.getDescriptor().getModuleRevisionId().getName());
+            assertEquals("3.3.1", rmr.getDescriptor().getModuleRevisionId().getRevision());
         }
     }
 
     @Test
-    public void testPomResolutionFailure()
-        throws Exception
-    {
-        testResolution( null, null );
+    public void testPomResolutionFailure() throws Exception {
+        testResolution(null, null);
     }
 
     @Test
-    public void testNonExistentPom()
-        throws Exception
-    {
-        testResolution( "non-existent", null );
+    public void testNonExistentPom() throws Exception {
+        testResolution("non-existent", null);
     }
 
     @Test
-    public void testJarResolutionFailure()
-        throws Exception
-    {
-        testResolution( "plexus", null );
+    public void testJarResolutionFailure() throws Exception {
+        testResolution("plexus", null);
     }
 
     @Test
-    public void testNonExistentJar()
-        throws Exception
-    {
-        testResolution( "plexus", "non-existent" );
+    public void testNonExistentJar() throws Exception {
+        testResolution("plexus", "non-existent");
     }
 
     @Test
-    public void testSuccess()
-        throws Exception
-    {
-        testResolution( "plexus", "empty" );
+    public void testSuccess() throws Exception {
+        testResolution("plexus", "empty");
     }
 }
