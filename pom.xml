@@ -14,20 +14,15 @@
  ! See the License for the specific language governing permissions and
  ! limitations under the License.
  `-->
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0                              http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.fedoraproject.xmvn</groupId>
   <artifactId>xmvn-connector-ivy</artifactId>
   <version>5.0.0-SNAPSHOT</version>
   <name>XMvn Connector for Apache Ivy</name>
-  <description>
-    XMvn Connector for Apache Ivy provides integration of Apache Ivy
+  <description>XMvn Connector for Apache Ivy provides integration of Apache Ivy
     with XMvn.  It provides an adapter which allows XMvn resolver to
-    be used as Ivy resolver.
-  </description>
+    be used as Ivy resolver.</description>
   <url>https://fedora-java.github.io/xmvn/</url>
   <inceptionYear>2012</inceptionYear>
   <organization>
@@ -53,16 +48,16 @@
   <mailingLists>
     <mailingList>
       <name>Fedora Java development List</name>
-      <post>java-devel@lists.fedoraproject.org</post>
-      <archive>http://lists.fedoraproject.org/pipermail/java-devel/</archive>
       <subscribe>https://admin.fedoraproject.org/mailman/listinfo/java-devel</subscribe>
       <unsubscribe>https://admin.fedoraproject.org/mailman/listinfo/java-devel</unsubscribe>
+      <post>java-devel@lists.fedoraproject.org</post>
+      <archive>http://lists.fedoraproject.org/pipermail/java-devel/</archive>
     </mailingList>
   </mailingLists>
   <scm>
-    <url>https://github.com/fedora-java/xmvn-connector-ivy</url>
     <connection>scm:git:https://github.com/fedora-java/xmvn-connector-ivy.git</connection>
     <developerConnection>scm:git:git@github.com:fedora-java/xmvn-connector-ivy.git</developerConnection>
+    <url>https://github.com/fedora-java/xmvn-connector-ivy</url>
   </scm>
   <issueManagement>
     <system>Github</system>
