@@ -29,7 +29,6 @@ import org.apache.ivy.core.report.ArtifactDownloadReport;
 import org.apache.ivy.core.report.ResolveReport;
 import org.apache.ivy.core.settings.IvySettings;
 import org.fedoraproject.xmvn.artifact.Artifact;
-import org.fedoraproject.xmvn.artifact.DefaultArtifact;
 import org.fedoraproject.xmvn.deployer.Deployer;
 import org.fedoraproject.xmvn.resolver.ResolutionRequest;
 import org.fedoraproject.xmvn.resolver.ResolutionResult;
@@ -79,7 +78,7 @@ public class Bug1127804Test {
     }
 
     public void addArtifact(String coordinates, String resource) {
-        Artifact artifact = new DefaultArtifact(coordinates);
+        Artifact artifact = Artifact.of(coordinates);
         ResolutionRequest request = new ResolutionRequest(artifact);
         Path artifactPath = getResource(resource);
         ResolutionResult result = new ResolutionResultMock(artifactPath);
@@ -87,8 +86,8 @@ public class Bug1127804Test {
     }
 
     public void expectArtifact(String coordinates, String resource) {
-        Artifact artifact = new DefaultArtifact(coordinates);
-        artifact = artifact.setPath(getResource(resource));
+        Artifact artifact = Artifact.of(coordinates);
+        artifact = artifact.withPath(getResource(resource));
         visitor.visitArtifact(artifact);
         expectLastCall();
     }
@@ -101,7 +100,7 @@ public class Bug1127804Test {
         for (ArtifactDownloadReport artifactReport : report.getAllArtifactsReports()) {
             Artifact artifact = IvyResolver.ivy2aether(artifactReport.getArtifact());
             Path artifactPath = artifactReport.getLocalFile().toPath().toAbsolutePath();
-            artifact = artifact.setPath(artifactPath);
+            artifact = artifact.withPath(artifactPath);
             visitor.visitArtifact(artifact);
         }
 

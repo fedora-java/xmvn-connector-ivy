@@ -103,7 +103,7 @@ public class IvyResolver extends AbstractResolver {
         String classifier = revision.getExtraAttribute("classifier");
         String version = revision.getRevision();
 
-        return new org.fedoraproject.xmvn.artifact.DefaultArtifact(
+        return org.fedoraproject.xmvn.artifact.Artifact.of(
                 groupId, artifactId, extension, classifier, version);
     }
 
@@ -123,7 +123,7 @@ public class IvyResolver extends AbstractResolver {
             else if (extension.equals("jar") && type.equals("javadoc")) classifier = "javadoc";
         }
 
-        return new org.fedoraproject.xmvn.artifact.DefaultArtifact(
+        return org.fedoraproject.xmvn.artifact.Artifact.of(
                 groupId, artifactId, extension, classifier, version);
     }
 
@@ -234,7 +234,7 @@ public class IvyResolver extends AbstractResolver {
             org.fedoraproject.xmvn.artifact.Artifact artifact, String type, Path artifactPath)
             throws IOException {
         DeploymentRequest request = new DeploymentRequest();
-        request.setArtifact(artifact.setPath(artifactPath));
+        request.setArtifact(artifact.withPath(artifactPath));
         if (type != null) request.addProperty("type", type);
         DeploymentResult result = getDeployer().deploy(request);
         if (result.getException() != null)

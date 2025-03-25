@@ -32,7 +32,6 @@ import org.apache.ivy.core.resolve.ResolvedModuleRevision;
 import org.apache.ivy.core.settings.IvySettings;
 import org.easymock.EasyMock;
 import org.fedoraproject.xmvn.artifact.Artifact;
-import org.fedoraproject.xmvn.artifact.DefaultArtifact;
 import org.fedoraproject.xmvn.deployer.Deployer;
 import org.fedoraproject.xmvn.resolver.ResolutionRequest;
 import org.fedoraproject.xmvn.resolver.ResolutionResult;
@@ -67,13 +66,13 @@ public class DependencyResolverTest {
     }
 
     private void testResolution(String pom, String jar) throws Exception {
-        Artifact pomArtifact = new DefaultArtifact("gid:aid:pom:ver");
+        Artifact pomArtifact = Artifact.of("gid:aid:pom:ver");
         ResolutionRequest pomRequest = new ResolutionRequest(pomArtifact);
         Path pomPath = getResource(pom, "pom");
         ResolutionResult pomResult = new ResolutionResultMock(pomPath);
         expect(resolver.resolve(pomRequest)).andReturn(pomResult);
 
-        Artifact jarArtifact = new DefaultArtifact("gid:aid:jar:ver");
+        Artifact jarArtifact = Artifact.of("gid:aid:jar:ver");
         ResolutionRequest jarRequest = new ResolutionRequest(jarArtifact);
         Path jarPath = getResource(jar, "jar");
         ResolutionResult jarResult = new ResolutionResultMock(jarPath);
