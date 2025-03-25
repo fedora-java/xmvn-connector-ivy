@@ -71,7 +71,7 @@
   </distributionManagement>
   <properties>
     <project.build.sourceEncoding>US-ASCII</project.build.sourceEncoding>
-    <xmvnVersion>4.2.0</xmvnVersion>
+    <xmvnVersion>5.0.0-SNAPSHOT</xmvnVersion>
     <ivyVersion>2.5.1</ivyVersion>
     <slf4jVersion>2.0.7</slf4jVersion>
     <junitVersion>5.10.0</junitVersion>

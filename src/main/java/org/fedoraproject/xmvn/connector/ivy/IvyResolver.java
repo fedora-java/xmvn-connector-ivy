@@ -1,5 +1,5 @@
 /*-
- * Copyright (c) 2013-2021 Red Hat, Inc.
+ * Copyright (c) 2013-2025 Red Hat, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -47,6 +47,7 @@ import org.apache.ivy.plugins.resolver.util.ResolvedResource;
 import org.fedoraproject.xmvn.deployer.Deployer;
 import org.fedoraproject.xmvn.deployer.DeploymentRequest;
 import org.fedoraproject.xmvn.deployer.DeploymentResult;
+import org.fedoraproject.xmvn.deployer.impl.DefaultDeployer;
 import org.fedoraproject.xmvn.locator.ServiceLocator;
 import org.fedoraproject.xmvn.locator.ServiceLocatorFactory;
 import org.fedoraproject.xmvn.resolver.ResolutionRequest;
@@ -71,13 +72,9 @@ public class IvyResolver extends AbstractResolver {
         static final Resolver RESOLVER = LazyLocatorProvider.LOCATOR.getService(Resolver.class);
     }
 
-    static class LazyDeployerProvider {
-        static final Deployer DEPLOYER = LazyLocatorProvider.LOCATOR.getService(Deployer.class);
-    }
-
     private Resolver resolver;
 
-    private Deployer deployer;
+    private Deployer deployer = new DefaultDeployer();
 
     public IvyResolver() {
         setName("XMvn");
@@ -92,7 +89,7 @@ public class IvyResolver extends AbstractResolver {
     }
 
     public Deployer getDeployer() {
-        return deployer != null ? deployer : LazyDeployerProvider.DEPLOYER;
+        return deployer;
     }
 
     public void setDeployer(Deployer deployer) {

@@ -1,5 +1,5 @@
 /*-
- * Copyright (c) 2014-2021 Red Hat, Inc.
+ * Copyright (c) 2013-2025 Red Hat, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,33 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.fedoraproject.xmvn.connector.ivy;
+package org.fedoraproject.xmvn.deployer.impl;
 
-import java.nio.file.Path;
-import org.fedoraproject.xmvn.resolver.ResolutionResult;
+import org.fedoraproject.xmvn.deployer.DeploymentResult;
 
 /**
  * @author Mikolaj Izdebski
  */
-class ResolutionResultMock implements ResolutionResult {
-    private final Path artifactPath;
-
-    public ResolutionResultMock(Path artifactPath) {
-        this.artifactPath = artifactPath;
-    }
+public class DefaultDeploymentResult implements DeploymentResult {
+    private Exception exception;
 
     @Override
-    public Path getArtifactPath() {
-        return artifactPath;
+    public Exception getException() {
+        return exception;
     }
 
-    @Override
-    public String getCompatVersion() {
-        return null;
-    }
-
-    @Override
-    public String getNamespace() {
-        return null;
+    public void setException(Exception exception) {
+        this.exception = exception;
     }
 }
