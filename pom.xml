@@ -76,7 +76,7 @@
     <slf4jVersion>2.0.17</slf4jVersion>
     <junitVersion>6.0.3</junitVersion>
     <easymockVersion>5.6.0</easymockVersion>
-    <compilerPluginVersion>3.14.1</compilerPluginVersion>
+    <compilerPluginVersion>3.15.0</compilerPluginVersion>
     <surefireVersion>3.5.4</surefireVersion>
     <spotlessVersion>2.43.0</spotlessVersion>
   </properties>
