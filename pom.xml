@@ -74,7 +74,7 @@
     <xmvnVersion>5.1.0</xmvnVersion>
     <ivyVersion>2.5.3</ivyVersion>
     <slf4jVersion>2.0.18</slf4jVersion>
-    <junitVersion>6.0.3</junitVersion>
+    <junitVersion>6.1.1</junitVersion>
     <easymockVersion>5.6.0</easymockVersion>
     <compilerPluginVersion>3.15.0</compilerPluginVersion>
     <surefireVersion>3.5.5</surefireVersion>
